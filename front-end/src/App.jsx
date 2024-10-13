@@ -50,9 +50,9 @@ function App() {
           path="history"
           element={<PrimaryComponent children={<History />} />}
         />
-        <Route
+        <Route 
           path="account"
-          element={<PrimaryComponent children={<Account />} />}
+          element={<PrimaryComponent children={<Account/>} />}
         />
 
         <Route

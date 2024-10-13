@@ -20,6 +20,9 @@ module.exports.register_post = [
       username: req.body.username,
       salt: saltHash.salt,
       hash: saltHash.hash,
+      email : req.body.email,
+      staffID: req.body.staffID,
+      phonenumber : req.body.phonenumber
     });
 
     if (!errors.isEmpty()) {

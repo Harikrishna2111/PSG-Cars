@@ -11,3 +11,4 @@ router.get('/authenticated', (req, res, next) => {
 })
 
 module.exports = router;
+
