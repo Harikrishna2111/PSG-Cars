@@ -13,7 +13,7 @@ import Login from "./components/Login_Register/Login";
 import History from "./components/History/History";
 import Account from "./components/Account/Account";
 import Document from "./components/Document/Document";
-
+import Contact from "./components/Contact/Contact";
 
 function App() {
   let [user, setUser] = useState({ user: false });
@@ -58,6 +58,11 @@ function App() {
         <Route
           path="document"
           element={<PrimaryComponent children={<Document />} />}
+        />
+
+        <Route
+          path="contact"
+          element={<PrimaryComponent children={<Contact />} />}
         />
       </Route>
     </Routes>

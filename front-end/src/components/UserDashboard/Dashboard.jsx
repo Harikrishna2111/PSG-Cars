@@ -1,4 +1,5 @@
-import { AccountBox, CarRentalRounded, DashboardCustomizeOutlined,  DocumentScanner,  HistoryRounded } from "@mui/icons-material";
+import { AccountBox, CarRentalRounded, DashboardCustomizeOutlined,  DocumentScanner,  HistoryRounded} from "@mui/icons-material";
+import ContactPageIcon from '@mui/icons-material/ContactPage';
 import { AppProvider, DashboardLayout } from "@toolpad/core"
 import { createTheme } from "@mui/material";
 import './Dashboard.css'
@@ -47,6 +48,11 @@ export default function PrimaryComponent({children}){
         segment: 'account',
         title: 'Account',
         icon: <AccountBox />,
+      },
+      {
+        segment: 'contact',
+        title: 'Contact Us',
+        icon: <ContactPageIcon />,
       },
       {
         kind: 'divider'
