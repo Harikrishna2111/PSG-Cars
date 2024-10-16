@@ -1,130 +1,242 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import React from "react";
+import { AppBar, Toolbar, Typography, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Card, Box, Stack } from "@mui/material";
+import AdbIcon from "@mui/icons-material/Adb";
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function AdminDashboard() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const columns = [
+    { id: "name", label: "Name", minWidth: 170 },
+    { id: "code", label: "Email", minWidth: 100 },
+    {
+      id: "population",
+      label: "Pickup",
+      minWidth: 170,
+    },
+    {
+      id: "size",
+      label: "Drop",
+      minWidth: 170,
+    },
+    {
+      id: "density",
+      label: "Dual Trip",
+      minWidth: 170,
+    },
+    {
+      id: "density",
+      label: "Number of People",
+      minWidth: 170,
+    },
+    {
+      id: "density",
+      label: "Document",
+      minWidth: 170,
+    },
+    {
+      id: "density",
+      label: "Action",
+      minWidth: 170,
+    },
+  ];
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
+  function createData(name, code, population, size) {
+    const density = population / size;
+    return { name, code, population, size, density };
+  }
+
+  const rows = [
+    createData("India", "IN", 1324171354, 3287263),
+    createData("China", "CN", 1403500365, 9596961),
+    createData("Italy", "IT", 60483973, 301340),
+    createData("United States", "US", 327167434, 9833520),
+    createData("Canada", "CA", 37602103, 9984670),
+    createData("Australia", "AU", 25475400, 7692024),
+    createData("Germany", "DE", 83019200, 357578),
+    createData("Ireland", "IE", 4857000, 70273),
+    createData("Mexico", "MX", 126577691, 1972550),
+    createData("Japan", "JP", 126317000, 377973),
+    createData("France", "FR", 67022000, 640679),
+    createData("United Kingdom", "GB", 67545757, 242495),
+    createData("Russia", "RU", 146793744, 17098246),
+    createData("Nigeria", "NG", 200962417, 923768),
+    createData("Brazil", "BR", 210147125, 8515767),
+  ];
+  
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
   };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+ 
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
+    <>
+      <AppBar position="static" style={{width:'100wh'}}>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="#app-bar-with-responsive-menu"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              PSG Cars
+            </Typography>
+          </Toolbar>
+        </Container>
+      </AppBar>
+   
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
+      <h1 style={{ color: "lightblue", fontFamily:'"Roboto", "Helvetica", "Arial", sans-serif', marginBottom:'50px' }}>Welcome Admin!</h1>
+      <h3 style={{color:'lightblue', fontFamily:'"Roboto", "Helvetica", "Arial", sans-serif' }}>Booking Requests</h3>
+
+      <Paper sx={{ width: "100%" , borderStyle:'solid', borderColor:'lightblue' }}>
+        <TableContainer sx={{ maxHeight: 440}}>
+          <Table stickyHeader aria-label="sticky table" >
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth , color:'lightblue', backgroundColor: '#121212' , fontWeight:'bolder'}}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={row.code}
+                    >
+                      {columns.map((column) => {
+                        const value = row[column.id];
+                        return (
+                          <TableCell key={column.id} align={column.align} style={{color:'white' , backgroundColor: '#121212'}}>
+                            {column.format && typeof value === "number"
+                              ? column.format(value)
+                              : value}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          style={{color:'lightblue', backgroundColor: '#121212'}}
+        />
+      </Paper>
+      <h3 style={{color:'lightblue', fontFamily:'"Roboto", "Helvetica", "Arial", sans-serif' }}>Ongoing Booking</h3>
+
+<Paper sx={{ width: "100%" , borderStyle:'solid', borderColor:'lightblue' }}>
+  <TableContainer sx={{ maxHeight: 440 }}>
+    <Table stickyHeader aria-label="sticky table" >
+      <TableHead>
+        <TableRow>
+          {columns.map((column) => (
+            <TableCell
+              key={column.id}
+              align={column.align}
+              style={{ minWidth: column.minWidth , color:'lightblue', backgroundColor: '#121212'}}
             >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{ display: { xs: 'block', md: 'none' } }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            PSG Cars
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+              {column.label}
+            </TableCell>
+          ))}
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {rows
+          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .map((row) => {
+            return (
+              <TableRow
+                hover
+                role="checkbox"
+                tabIndex={-1}
+                key={row.code}
               >
-                {page}
-              </Button>
-            ))}
-          </Box>
+                {columns.map((column) => {
+                  const value = row[column.id];
+                  return (
+                    <TableCell key={column.id} align={column.align} style={{color:'white' , backgroundColor: '#121212'}}>
+                      {column.format && typeof value === "number"
+                        ? column.format(value)
+                        : value}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            );
+          })}
+      </TableBody>
+    </Table>
+  </TableContainer>
+  <TablePagination
+    rowsPerPageOptions={[10, 25, 100]}
+    component="div"
+    count={rows.length}
+    rowsPerPage={rowsPerPage}
+    page={page}
+    onPageChange={handleChangePage}
+    onRowsPerPageChange={handleChangeRowsPerPage}
+    style={{color:'lightblue', backgroundColor: '#121212'}}
+  />
+</Paper>
+<h3 style={{color:'lightblue', fontFamily:'"Roboto", "Helvetica", "Arial", sans-serif' }}>Inbox</h3>
+<Card variant="outlined" sx={{ maxWidth: 360, color:'lightblue',backgroundColor: '#121212', borderStyle:'solid', borderColor:'lightblue'}}>
+      <Box sx={{ p: 2 }}>
+        <Stack
+          direction="row"
+          sx={{ justifyContent: 'space-between', alignItems: 'center' }}
+        >
+          <Typography gutterBottom variant="h5" component="div">
+            My Name
+          </Typography>
+        </Stack>
+        <p>myid@mail.com</p>
 
-        </Toolbar>
-      </Container>
-    </AppBar>
+        <hr />
+        <Typography variant="body2" sx={{ color: 'white' }}>
+          This is my message.
+        </Typography>
+      </Box>
+
+    </Card>
+    </>
   );
 }
 export default AdminDashboard;
