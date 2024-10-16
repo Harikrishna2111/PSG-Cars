@@ -14,7 +14,7 @@ import History from "./components/History/History";
 import Account from "./components/Account/Account";
 import Document from "./components/Document/Document";
 import Contact from "./components/Contact/Contact";
-import { AdminDashboard } from "./components/Admin_Dashboard/AdminDashboard";
+import AdminDashboard from "./components/Admin_Dashboard/AdminDashboard";
 
 function App() {
   let [user, setUser] = useState({ user: false });
@@ -37,8 +37,7 @@ function App() {
       <Route index element={<Register />} />
       <Route path="register" element={<Register />} />
       <Route path="login" element={<Login />} />
-      <Route path="admin" element={<AdminDashboard />} />
-
+<Route path="admin" element={<AdminDashboard/>}/>
       <Route element={<ProtectedRoute user={user.user} />}>
         <Route
           path="dashboard"
